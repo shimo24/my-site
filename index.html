@@ -1,14 +1,223 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ask</title>
+  <meta charset="UTF-8" />
+  <title>Kübram İçin 💖</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <div>
-        <h1>Welcome to the Ask Page</h1>
-        <p>This is a simple HTML page titled "ask".</p>
+  <div class="floating-hearts" id="floatingHearts"></div>
+
+  <header class="hero" id="top">
+    <div class="hero-content">
+      <p class="hero-small">Bu site sadece senin için, Kübram… 💌</p>
+      <h1 class="hero-title">Kalbimin Sultanı Kübra’ya</h1>
+      <p class="hero-text">
+        Ben Salar… Ve burası, benim <span class="highlight">civcivim</span>,
+        <span class="highlight">eşek gözlüm</span>, <span class="highlight">prensesim</span>,
+        kısacası <span class="highlight">kalbimin sultanı</span> Kübra’ya ayırdığım yer.
+      </p>
+      <div class="hero-buttons">
+        <a href="#memories" class="btn primary">Anılarımıza Bak ✨</a>
+        <button class="btn secondary" id="loveButton">Kalbine Dokun ❤️</button>
+      </div>
     </div>
+  </header>
+
+  <nav class="nav">
+    <div class="nav-inner">
+      <span class="nav-logo">💖 Salar & Kübra</span>
+      <div class="nav-links">
+        <a href="#memories">Anılar</a>
+        <a href="#timeline">Zaman Çizelgesi</a>
+        <a href="#reasons">Seni Sevmemin Nedenleri</a>
+        <a href="#letter">Sana Mektubum</a>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Anılar (Fotoğraf alanı) -->
+    <section class="section" id="memories">
+      <div class="section-header">
+        <h2>Bizim Anılarımız 📸</h2>
+        <p>Buraya beraber çekildiğimiz fotoğraflarımızdan birkaç tanesini koyacağım…</p>
+      </div>
+
+      <div class="gallery">
+        <!-- FOTOĞRAF 1 -->
+        <div class="gallery-item">
+          <div class="img-placeholder">
+            <!-- ÖRNEK: <img src="images/biz1.jpg" alt="Salar ve Kübra"> -->
+            <span>Buraya fotoğraf koyacağım 💕</span>
+          </div>
+          <p class="gallery-caption">
+            Buraya bu anın ne kadar özel olduğunu anlatan bir cümle yazabilirim…
+          </p>
+        </div>
+
+        <!-- FOTOĞRAF 2 -->
+        <div class="gallery-item">
+          <div class="img-placeholder">
+            <span>Buraya da bir anımız gelecek ✨</span>
+          </div>
+          <p class="gallery-caption">
+            “Burada o kadar çok güldük ki, hâlâ aklıma gelince gülümsüyorum.”
+          </p>
+        </div>
+
+        <!-- FOTOĞRAF 3 -->
+        <div class="gallery-item">
+          <div class="img-placeholder">
+            <span>Birlikte başka bir anımız 💫</span>
+          </div>
+          <p class="gallery-caption">
+            “Sen yanımdayken dünya gerçekten daha güzel oluyor, Kübram.”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Zaman Çizelgesi -->
+    <section class="section alt" id="timeline">
+      <div class="section-header">
+        <h2>Bizim Hikayemiz 🕰️</h2>
+        <p>Seninle geçen her gün ayrı bir bölüm gibi…</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <h3>Tanıştığımız Gün</h3>
+            <p>
+              Hayatımın en büyük plot twist’i… O gün, aslında her şeyin değiştiği gündü.
+              O zaman bilmiyordum ama karşımdaki insan, <strong>kalbimin sultanı</strong> olacaktı.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <h3>İlk Gerçek Kahkahamız</h3>
+            <p>
+              “Eşek gözlüm” diye takıldığım ama içimden “İyi ki varsın” dediğim anlardan biri.
+              Gülüşün bende bağımlılık yaptı, biliyor musun?
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <h3>Biz Olmaya Başladığımız An</h3>
+            <p>
+              Artık sen sadece bir isim değildin;  
+              <strong>civcivim, prensesim, kalbimin en güzel köşesi</strong> oldun.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Nedenler -->
+    <section class="section" id="reasons">
+      <div class="section-header">
+        <h2>Seni Sevmemin Bazı Nedenleri 💫</h2>
+        <p>Hepsini yazsam bu sayfa yetmez, ama birkaçını bırakmak istedim…</p>
+      </div>
+
+      <div class="reasons">
+        <div class="reason-card">
+          <h3>1. Gülüşün</h3>
+          <p>
+            Ne kadar kötü bir gün geçirirsem geçireyim, bir gülüşünle sıfırlanıyor hepsi.
+            Sanki “tamam, artık her şey yolunda” sinyali gibi.
+          </p>
+        </div>
+
+        <div class="reason-card">
+          <h3>2. Kalbin</h3>
+          <p>
+            Herkese karşı merhametli ve düşünceli oluşun…  
+            Benim için “kalbimin sultanı” lafı boşuna değil, gerçekten kalbimi yönetiyorsun.
+          </p>
+        </div>
+
+        <div class="reason-card">
+          <h3>3. Küçük Şeylerden Mutlu Olman</h3>
+          <p>
+            Bazen basit bir mesaj, bazen küçük bir espri…  
+            Seni mutlu etmek için çok büyük şeylere gerek olmaması beni daha da sana bağlıyor.
+          </p>
+        </div>
+
+        <div class="reason-card">
+          <h3>4. Benimle Kurduğun Dünya</h3>
+          <p>
+            Bazen ikimiz için kurduğumuz küçük hayaller var ya…  
+            İşte o hayallerde kendimi hep senin yanında görüyorum, başka türlüsü güzel gelmiyor.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mektup -->
+    <section class="section alt" id="letter">
+      <div class="section-header">
+        <h2>Sana Küçük Bir Mektup 💌</h2>
+        <p>Bu kısmı okurken belki biraz duygulanabilirsin, haberin olsun…</p>
+      </div>
+
+      <div class="letter-card">
+        <p>
+          Sevgili Kübra,
+        </p>
+        <p>
+          Ben Salar. Biliyorum, bunu zaten biliyorsun ama buraya özellikle yazmak istedim.
+          Çünkü seninle ilgili hissettiklerimi bazen kelimelere dökmek zor oluyor.
+        </p>
+        <p>
+          Sen benim <strong>civcivim</strong>,  
+          bazen dalga geçtiğim ama her seferinde içimden sarılmak istediğim <strong>eşek gözlüm</strong>,  
+          her bakışında kalbimi hızlandıran <strong>prensesim</strong> ve  
+          her şeyin ötesinde <strong>kalbimin sultanısın</strong>.
+        </p>
+        <p>
+          Bu siteyi, seni ne kadar sevdiğimi hatırlatacak küçük bir hatıra olsun diye yaptım.
+          Belki çok profesyonel değildir ama içinde sen varsın, ben varım, biz varız. 
+        </p>
+        <p>
+          İyi ki hayatıma girdin.  
+          İyi ki “biz” olduk.  
+          Seni, kelimelerin yetmediği kadar çok seviyorum.
+        </p>
+        <p class="signature">
+          Her zaman,  
+          Salar 💖
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- Aşağı kaydırma butonu -->
+  <footer class="footer">
+    <p>Bu site tamamen Kübram için, sevgilerle: Salar 💘</p>
+    <a href="#top" class="back-to-top">Yukarı Çık ⬆️</a>
+  </footer>
+
+  <!-- Sevgi Mesajı Pop-up -->
+  <div class="love-modal" id="loveModal">
+    <div class="love-modal-content">
+      <span class="love-close" id="loveClose">&times;</span>
+      <p id="loveMessage"></p>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
