@@ -407,4 +407,106 @@ body {
 
 
 
+/* AŞKIM QUIZ – SİTE TASARIMINA UYUMLU VERSİYON  */
+
+/* Ortalamak için */
+#askim-quiz {
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 16px;
+  font-family: inherit; /* Sitenin fontunu kullan */
+}
+
+/* Ana kart – Bizim Hikayemiz kartına benzer koyu kutu */
+#askim-quiz .quiz-card {
+  background: radial-gradient(circle at top left, #ff6fb7 0%, #3a1233 40%, #2a0f27 100%);
+  border-radius: 26px;
+  padding: 24px 28px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #ffe6fb;
+}
+
+/* Adımlar (zaten aynı kartın içinde, sadece biri görünüyor) */
+#askim-quiz .quiz-step {
+  transition: opacity 0.25s ease;
+}
+
+#askim-quiz .hidden {
+  display: none;
+}
+
+/* Başlıklar – ortalı, biraz büyük */
+#askim-quiz h3 {
+  margin: 0 0 8px;
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+/* Paragraflar */
+#askim-quiz p {
+  margin: 4px 0 12px;
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* Seçenek alanı */
+#askim-quiz .options {
+  margin-top: 8px;
+}
+
+/* Seçenek butonları ve final butonu */
+#askim-quiz .option-btn,
+#askim-quiz #btn-show-final-text {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(0, 0, 0, 0.18);
+  color: #ffe6fb;
+  cursor: pointer;
+  font-size: 0.95rem;
+  backdrop-filter: blur(6px);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+#askim-quiz .option-btn:hover,
+#askim-quiz #btn-show-final-text:hover {
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+#askim-quiz #btn-show-final-text {
+  text-align: center;
+  font-weight: 600;
+}
+
+/* Final gizli metin kutusu */
+#askim-quiz #final-secret-text {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+/* Mesaj alanı (doğru / yanlış yazıları) */
+#askim-quiz .quiz-message {
+  margin-top: 14px;
+  font-size: 0.9rem;
+  min-height: 18px;
+  text-align: center;
+}
+
+#askim-quiz .quiz-message.error {
+  color: #ff9bb3;
+}
+
+#askim-quiz .quiz-message.success {
+  color: #b2ffb9;
+}
 
