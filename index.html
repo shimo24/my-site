@@ -36,6 +36,7 @@
         <a href="#reasons">Seni Sevmemin Nedenleri</a>
         <a href="#letter">Sana Mektubum</a>
         <a href="ozelfoto.html" target="_blank">Özel Fotoğraf</a>
+         <a href="#game">Mini Oyun</a>
       </div>
     </div>
   </nav>
@@ -205,21 +206,110 @@
         </p>
       </div>
     </section>
-  </main>
 
-  <!-- Aşağı kaydırma butonu -->
-  <footer class="footer">
-    <p>Bu site tamamen Kübram için, sevgilerle: Salar 💘</p>
-    <a href="#top" class="back-to-top">Yukarı Çık ⬆️</a>
-  </footer>
+    <!-- Aşkım Quiz Başlangıç -->
+     <section class="section" id="game">
+  <div id="askim-quiz">
+    <div class="quiz-card">
+      <!-- Soru 1 -->
+      <div class="quiz-step" id="quiz-step-1">
+        <h3>Soru 1</h3>
+        <p>2 + 2 = ?</p>
+        <div class="options">
+          <button type="button" class="option-btn" data-correct="false">3</button>
+          <button type="button" class="option-btn" data-correct="true" data-next="2">4</button>
+          <button type="button" class="option-btn" data-correct="false">5</button>
+          <button type="button" class="option-btn" data-correct="false">22</button>
+        </div>
+      </div>
 
-  <!-- Sevgi Mesajı Pop-up -->
-  <div class="love-modal" id="loveModal">
-    <div class="love-modal-content">
-      <span class="love-close" id="loveClose">&times;</span>
-      <p id="loveMessage"></p>
+      <!-- Soru 2 -->
+      <div class="quiz-step hidden" id="quiz-step-2">
+        <h3>Soru 2</h3>
+        <p>İlk kez sana nasıl “aşkım” demeye çalıştım?</p>
+        <div class="options">
+          <button
+            type="button"
+            class="option-btn"
+            data-correct="true"
+            data-next="3"
+          >
+            Ya bir tane kelime var, onu söylesem rahatlayacağım hahaha.
+          </button>
+          <button type="button" class="option-btn" data-correct="false">
+            Direkt sana “aşkım” demeye başladım.
+          </button>
+        </div>
+      </div>
+
+      <!-- Soru 3 -->
+      <div class="quiz-step hidden" id="quiz-step-3">
+        <h3>Soru 3</h3>
+        <p>Seni daha görmeden önce dediğim ilk şey neydi?</p>
+        <div class="options">
+          <button
+            type="button"
+            class="option-btn"
+            data-correct="true"
+            data-next="final"
+          >
+            Bu kız çok güzel, bana bakmaz.
+          </button>
+          <button type="button" class="option-btn" data-correct="false">
+            Bu kız çok değişik, anlamadım.
+          </button>
+          <button type="button" class="option-btn" data-correct="false">
+            Bu kız kesin beni sevmez.
+          </button>
+        </div>
+      </div>
+
+      <!-- Final adım (buton + gizli yazı) -->
+      <div class="quiz-step hidden" id="quiz-step-final">
+        <h3>Tebrikler 🎉</h3>
+        <p>
+          Aferin, bütün soruları doğru cevapladın.  
+          Şimdi sana biraz açılmak istiyorum.
+        </p>
+        <button type="button" id="btn-show-final-text">
+          Devam et
+        </button>
+
+        <div id="final-secret-text" class="hidden">
+          <p>
+            Naber iyisindir umarım bende iyiyim bugün sana bi açılasım geldi niye bande bilmiyorum 😅 ama öncelikle belki bu kelem çok hafif kalır    
+  Ama sana binlerce kez teşekkür ederim ki seni sevme şansını bana verdin seni sevmenin ve ya sana bakmanın seni öpmenin dokunmanın hisini nasıl bir duygu olduğunu hiç bir zaman anlamacan eğir benim gözümden bir gün kendine bakıcak olsan anca o zaman anlarsın ki sana dokunmak kuklamak o iki çift ışıl ışıl parlıyan  güzal gözlerin sana bakması aradan 1yıl geçmesine rağmen hala elin elime deeydinde kalbimin hızlanması sanki ilk kez butun cesaretimi toplayıp elini tutabilir miyim gibi her opucukte ilk öpücümmüş gibi heyecanlanıp tekrar tekrar öpmeni istemem gibi senle yaptığım hiç bir şeyin eskimemesi  işte o zaman farkına varıyorum ki sen benim için bir heves degil bir nimetsin bu dünyada bana sorsalar ki en kötü hastalık ne hiç düşünmeden kübrayı sevmek derim çünkü bir kere bu hastalığa kapıldın mı geri dönüşü olmuyor ve zaten de dunesin de gelmiyor öyle güzel bir duygu ki 
+  Ben gerçekten bu dünyada seni sevdiğim gibi hiç kimseyi sevmedim düşünmedim özlemedim tek bir saniye olmadı günün her dakikasında aklıma geldi elini tutmadım kukunu içime çekmedim her hanı yaşamış saymadım senle buluştum günleri ilk günden beri hep iple çektim çok net hatırlıyorum ilk aylarda buluşalım demeye bile utanırdım sen buluşalım dediğinde gece gözüme uyku girmezdi benki çok giyime falan önem vermyan birisiydim o günler bir gün önceden hazırlık yapardım aslında değişen hala hiç bir şey yok hala iple çekiyorum hala hazırlık yapıyorum her dakika seni etkilemeye çalışıyorum çünkü hala senin gibi bir kelimelerle anlatamıcam bir güzel peri masalarından çıkmış gibi bir kızın beni nasıl sevdiğini hâlâ inanamıyorum ki bunu seni ilk gördüğümde söylemiştim 😅 seni o kadar seviyorum ki saçına deyin rüzgarı bile kıskanasım geliyor ömrüm dan yılları feda edesim geliyor sana daha hızlı kavuşmak için yav ben baya senden sakladım bütün gizli düşüncelerimi anlattım
+          </p>
+        </div>
+      </div>
+
+      <!-- Mesaj alanı (alt tarafta sabit) -->
+      <p class="quiz-message" id="quiz-msg"></p>
     </div>
   </div>
+  <!-- Aşkım Quiz Bitiş -->
+
+
+
+
+    <!-- Aşağı kaydırma butonu -->
+    <footer class="footer">
+      <p>Bu site tamamen Kübram için, sevgilerle: Salar 💘</p>
+      <a href="#top" class="back-to-top">Yukarı Çık ⬆️</a>
+    </footer>
+
+    <!-- Sevgi Mesajı Pop-up -->
+    <div class="love-modal" id="loveModal">
+      <div class="love-modal-content">
+        <span class="love-close" id="loveClose">&times;</span>
+        <p id="loveMessage"></p>
+      </div>
+    </div>
+  </section>
+  </main>
+
+  
   <script src="script.js"></script>
 </body>
 </html>
