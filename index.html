@@ -259,7 +259,7 @@
             Bu kız çok değişik, anlamadım.
           </button>
           <button type="button" class="option-btn" data-correct="false">
-            Bu kız çok çirkin, başkası yok mu?.
+            Bu kız kesin beni sevmez.
           </button>
         </div>
       </div>
@@ -307,10 +307,58 @@
       </div>
     </div>
   </section>
+<section class="section alt" id="game">
+  <div class="section-header">
+    <h2>Prens & Prenses Oyunu 👑</h2>
+    <p>Kalpleri topla, dikenlerden kaç, prensesi yakala 💖</p>
+  </div>
+
+  <div class="game-wrapper">
+    <div class="game-card">
+
+      <div class="stage" id="stage">
+        <!-- HUD -->
+        <div class="hud">
+          <div class="chip">💖 <b id="score">0</b></div>
+          <div class="chip">❤️ <b id="lives">3</b></div>
+          <div class="chip">⏱️ <b id="time">30</b>s</div>
+        </div>
+
+        <!-- Karakterler -->
+        <div class="char prince" id="prince">🤴</div>
+        <div class="char princess" id="princess">👸</div>
+
+        <!-- Mesaj -->
+        <div class="toast" id="toast"></div>
+
+        <!-- Kazanma -->
+        <div class="win hidden" id="win">
+          <h3>🎉 Kavuşma!</h3>
+          <p>Başardın… artık sarılma zamanı 💖</p>
+          <button id="btnResetGame">Tekrar Oyna</button>
+        </div>
+      </div>
+
+      <!-- MOBİL TUŞLAR -->
+      <div class="mobile-controls">
+        <button class="m-btn" data-dir="up">▲</button>
+        <div class="row">
+          <button class="m-btn" data-dir="left">◀</button>
+          <button class="m-btn" data-dir="down">▼</button>
+          <button class="m-btn" data-dir="right">▶</button>
+        </div>
+      </div>
+
+      <p class="mobile-hint">Telefonda tuşlara basılı tutabilir veya sahnede sürükleyebilirsin</p>
+
+    </div>
+  </div>
+</section>
+
+
   </main>
 
   
   <script src="script.js"></script>
 </body>
 </html>
-

@@ -1,147 +1,307 @@
-// Kübra için tatlı sevgi mesajları
-const loveMessages = [
-  "Civcivim, sensiz geçen her dakika boşa gidiyor gibi hissediyorum. 💖",
-  "Eşek gözlüm, bakışlarınla kalbime imza attın, artık resmi olarak senindir. 💌",
-  "Prensesim, iyi ki kalbimin sultanı olmuşsun. Tahtın sonsuza kadar sende. 👑",
-  "Sen güldüğünde, içimden 'iyi ki Kübra var' diyorum. 💫",
-  "Seninle 'biz' olmak, hayatımdaki en güzel kararım. 💘"
-];
+// === PRENS & PRENSES OYUNU (FULL) ===
+// PC: ok tuşları basılı tutunca yürür + sayfa kaymaz
+// Telefon: yön tuşuna BASINCA 1 ADIM (basılı tutunca sürekli gitmez)
+// Telefon: sahnede sürükleme ile hareket (istersen kapatabilirsin)
+(() => {
+  const stage = document.getElementById("stage");
+  if (!stage) return;
 
-const loveButton = document.getElementById("loveButton");
-const loveModal = document.getElementById("loveModal");
-const loveMessage = document.getElementById("loveMessage");
-const loveClose = document.getElementById("loveClose");
+  const prince = document.getElementById("prince");
+  const princess = document.getElementById("princess");
+  const scoreEl = document.getElementById("score");
+  const livesEl = document.getElementById("lives");
+  const timeEl = document.getElementById("time");
+  const toast = document.getElementById("toast");
+  const win = document.getElementById("win");
+  const btnReset = document.getElementById("btnResetGame");
 
-if (loveButton) {
-  loveButton.addEventListener("click", () => {
-    const randomIndex = Math.floor(Math.random() * loveMessages.length);
-    loveMessage.textContent = loveMessages[randomIndex];
-    loveModal.style.display = "flex";
-  });
-}
+  // Ayarlar
+  const NEED_SCORE = 7;
+  const SPEED = 3.6;
+  const PRINCESS_FLEE_DIST = 220;
+  const PRINCESS_FLEE_SPEED = 2.0;
+  const WIN_DIST = 70;
 
-if (loveClose) {
-  loveClose.addEventListener("click", () => {
-    loveModal.style.display = "none";
-  });
-}
+  // Mobil 1-adım miktarı
+  const MOBILE_STEP = 22;
 
-window.addEventListener("click", (e) => {
-  if (e.target === loveModal) {
-    loveModal.style.display = "none";
+  // State
+  let keys = { ArrowLeft: false, ArrowRight: false, ArrowUp: false, ArrowDown: false };
+  let score = 0;
+  let lives = 3;
+  let time = 30;
+  let running = true;
+
+  // stage içi koordinatlar (px)
+  let p = { x: 0, y: 0 }; // prince
+  let q = { x: 0, y: 0 }; // princess
+
+  let hearts = [];
+  let thorns = [];
+
+  // Helpers
+  function rect() {
+    return stage.getBoundingClientRect();
   }
-});
-
-// Uçan kalpler
-const floatingHearts = document.getElementById("floatingHearts");
-
-function createHeart() {
-  if (!floatingHearts) return;
-
-  const heart = document.createElement("div");
-  heart.classList.add("heart");
-  heart.textContent = "❤";
-
-  const left = Math.random() * 100;
-  const duration = 4000 + Math.random() * 3000;
-
-  heart.style.left = `${left}vw`;
-  heart.style.bottom = "-40px";
-  heart.style.animationDuration = `${duration}ms`;
-
-  floatingHearts.appendChild(heart);
-
-  setTimeout(() => {
-    floatingHearts.removeChild(heart);
-  }, duration);
-}
-
-// Her 700ms'de bir kalp
-setInterval(createHeart, 700);
-
-
-
-
-const steps = {
-  current: "1",
-};
-
-const quizMsg = document.getElementById("quiz-msg");
-const finalStep = document.getElementById("quiz-step-final");
-const finalText = document.getElementById("final-secret-text");
-const finalBtn = document.getElementById("btn-show-final-text");
-
-function showStep(id) {
-  // Tüm adımları gizle
-  document
-    .querySelectorAll("#askim-quiz .quiz-step")
-    .forEach((el) => el.classList.add("hidden"));
-
-  // İstenen adımı göster
-  const target =
-    id === "final"
-      ? document.getElementById("quiz-step-final")
-      : document.getElementById("quiz-step-" + id);
-
-  if (target) {
-    target.classList.remove("hidden");
-    target.scrollIntoView({ behavior: "smooth", block: "center" });
-    steps.current = id;
+  function clamp(v, min, max) {
+    return Math.max(min, Math.min(max, v));
   }
-}
+  function dist(a, b) {
+    return Math.hypot(a.x - b.x, a.y - b.y);
+  }
 
-function setMessage(text, isError = false) {
-  if (!quizMsg) return;
-  quizMsg.textContent = text;
-  quizMsg.classList.remove("error", "success");
-  quizMsg.classList.add(isError ? "error" : "success");
-}
+  function render() {
+    prince.style.left = p.x + "px";
+    prince.style.top = p.y + "px";
+    princess.style.left = q.x + "px";
+    princess.style.top = q.y + "px";
+  }
 
-// Başlangıç: Sadece 1. soru açık
-showStep("1");
+  function showToast(t) {
+    if (!toast) return;
+    toast.textContent = t;
+    toast.classList.add("show");
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toast.classList.remove("show"), 1100);
+  }
 
-// Tüm seçenek butonları için tek event listener (event delegation)
-document
-  .getElementById("askim-quiz")
-  .addEventListener("click", function (e) {
-    const btn = e.target.closest(".option-btn");
-    if (!btn) return;
+  function spawn(type) {
+    const r = rect();
+    const el = document.createElement("div");
+    el.className = "item" + (type === "thorn" ? " danger" : "");
+    el.textContent = type === "thorn" ? "🌵" : "💖";
 
-    const isCorrect = btn.getAttribute("data-correct") === "true";
-    const next = btn.getAttribute("data-next"); // 2, 3 veya "final"
+    const x = 60 + Math.random() * (r.width - 120);
+    const y = 80 + Math.random() * (r.height - 140);
 
-    if (!isCorrect) {
-      setMessage("Yanlış cevap, bir daha dene. 😊", true);
-      return;
+    el.style.left = x + "px";
+    el.style.top = y + "px";
+    stage.appendChild(el);
+
+    (type === "thorn" ? thorns : hearts).push({ x, y, el });
+  }
+
+  function clearItems() {
+    hearts.forEach(o => o.el.remove());
+    thorns.forEach(o => o.el.remove());
+    hearts = [];
+    thorns = [];
+  }
+
+  function resetGame() {
+    clearItems();
+
+    score = 0;
+    lives = 3;
+    time = 30;
+    running = true;
+
+    if (scoreEl) scoreEl.textContent = score;
+    if (livesEl) livesEl.textContent = lives;
+    if (timeEl) timeEl.textContent = time;
+    if (win) win.classList.add("hidden");
+
+    const r = rect();
+    p = { x: r.width * 0.20, y: r.height * 0.70 };
+    q = { x: r.width * 0.78, y: r.height * 0.42 };
+
+    for (let i = 0; i < 6; i++) spawn("heart");
+    for (let i = 0; i < 4; i++) spawn("thorn");
+
+    render();
+    showToast("Başla! Kalpleri topla 💖");
+  }
+
+  // =========================
+  // PC: Ok tuşları sayfa kaydırmasın
+  // =========================
+  window.addEventListener("keydown", (e) => {
+    const allowed = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
+    if (allowed.includes(e.key)) {
+      e.preventDefault();
+      keys[e.key] = true;
     }
+  }, { passive: false });
 
-    // Doğru cevapsa:
-    if (steps.current === "1") {
-      setMessage(
-        "Bu soruya cevap veremeyeceğin kadar zor yani? AI kullandın!!!!!. 😏",
-        false
-      );
-    } else if (steps.current === "2") {
-      setMessage(
-        "Aferin, bu aşamayı da geçtin, tebrikler! Bir sonraki bu kadar kolay olmayacak. 😉",
-        false
-      );
-    } else if (steps.current === "3") {
-      setMessage(
-        "Aferin, bütün soruları doğru cevapladın! Şu an sana biraz açılmak istiyorum. 💕",
-        false
-      );
+  window.addEventListener("keyup", (e) => {
+    const allowed = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown"];
+    if (allowed.includes(e.key)) {
+      e.preventDefault();
+      keys[e.key] = false;
     }
+  }, { passive: false });
 
-    // Sonraki adıma geç
-    if (next) {
-      showStep(next);
-    }
+  // =========================
+  // Telefon: Mobil tuşlar -> 1 BASIŞ = 1 ADIM
+  // =========================
+  document.querySelectorAll(".m-btn").forEach(btn => {
+    const dir = btn.getAttribute("data-dir");
+
+    btn.addEventListener("pointerdown", (e) => {
+      e.preventDefault();
+      if (!running) return;
+
+      const r = rect();
+
+      if (dir === "left")  p.x -= MOBILE_STEP;
+      if (dir === "right") p.x += MOBILE_STEP;
+      if (dir === "up")    p.y -= MOBILE_STEP;
+      if (dir === "down")  p.y += MOBILE_STEP;
+
+      p.x = clamp(p.x, 40, r.width - 40);
+      p.y = clamp(p.y, 40, r.height - 40);
+
+      // küçük yürüyüş animasyonu
+      prince.classList.add("walk");
+      setTimeout(() => prince.classList.remove("walk"), 150);
+
+      // mobilde de oyunun kuralları çalışsın
+      tickLogic();
+      render();
+    });
   });
 
-// Final butonu – yazıyı aç/kapat
-if (finalBtn && finalText) {
-  finalBtn.addEventListener("click", function () {
-    finalText.classList.toggle("hidden");
+  // =========================
+  // Telefon: sahnede sürükleme (istersen kaldırabilirsin)
+  // =========================
+  let dragging = false;
+  let last = null;
+
+  stage.addEventListener("pointerdown", (e) => {
+    if (!running) return;
+    // sadece touch/pen ile sürükle (mouse ile olmasın)
+    if (e.pointerType === "mouse") return;
+
+    dragging = true;
+    last = { x: e.clientX, y: e.clientY };
   });
-}
+
+  stage.addEventListener("pointermove", (e) => {
+    if (!dragging || !running) return;
+    if (e.pointerType === "mouse") return;
+
+    const dx = e.clientX - last.x;
+    const dy = e.clientY - last.y;
+    last = { x: e.clientX, y: e.clientY };
+
+    const r = rect();
+    p.x = clamp(p.x + dx, 40, r.width - 40);
+    p.y = clamp(p.y + dy, 40, r.height - 40);
+
+    tickLogic();
+    render();
+  });
+
+  stage.addEventListener("pointerup", () => { dragging = false; last = null; });
+  stage.addEventListener("pointercancel", () => { dragging = false; last = null; });
+
+  // =========================
+  // Timer
+  // =========================
+  setInterval(() => {
+    if (!running) return;
+    time--;
+    if (timeEl) timeEl.textContent = time;
+
+    if (time === 10) showToast("10 saniye! Hadi 😏");
+    if (time <= 0) {
+      running = false;
+      showToast("Süre bitti 😢");
+    }
+  }, 1000);
+
+  // =========================
+  // Oyun mantığı (hem PC loop hem mobil tıklama için ortak)
+  // =========================
+  function tickLogic() {
+    if (!running) return;
+
+    // prenses yaklaşınca kaçar
+    if (dist(p, q) < PRINCESS_FLEE_DIST) {
+      const dx = q.x - p.x;
+      const dy = q.y - p.y;
+      const l = Math.hypot(dx, dy) || 1;
+
+      const r = rect();
+      q.x = clamp(q.x + (dx / l) * PRINCESS_FLEE_SPEED, 40, r.width - 40);
+      q.y = clamp(q.y + (dy / l) * PRINCESS_FLEE_SPEED, 40, r.height - 40);
+    }
+
+    // kalp toplama
+    for (let i = hearts.length - 1; i >= 0; i--) {
+      const h = hearts[i];
+      if (dist(p, h) < 40) {
+        h.el.remove();
+        hearts.splice(i, 1);
+        score++;
+        if (scoreEl) scoreEl.textContent = score;
+        showToast(`Kalp! (${score}/${NEED_SCORE}) 💖`);
+        spawn("heart");
+      }
+    }
+
+    // diken çarpması
+    for (let i = 0; i < thorns.length; i++) {
+      const t = thorns[i];
+      if (dist(p, t) < 38) {
+        lives--;
+        if (livesEl) livesEl.textContent = lives;
+        showToast("Diken! 🌵");
+
+        p.x -= 30; // geri itme
+
+        if (lives <= 0) {
+          running = false;
+          showToast("Can bitti 😭");
+        }
+      }
+    }
+
+    // kazanma
+    if (score >= NEED_SCORE && dist(p, q) < WIN_DIST) {
+      running = false;
+      if (win) win.classList.remove("hidden");
+      showToast("Kavuşma! 💖");
+    }
+  }
+
+  // =========================
+  // PC Loop (basılı tutarak hareket)
+  // =========================
+  function loop() {
+    if (running) {
+      let vx = 0, vy = 0;
+
+      if (keys.ArrowLeft) vx--;
+      if (keys.ArrowRight) vx++;
+      if (keys.ArrowUp) vy--;
+      if (keys.ArrowDown) vy++;
+
+      const moving = vx !== 0 || vy !== 0;
+      prince.classList.toggle("walk", moving);
+
+      // normalize
+      const len = Math.hypot(vx, vy) || 1;
+      vx /= len; vy /= len;
+
+      const r = rect();
+      p.x = clamp(p.x + vx * SPEED, 40, r.width - 40);
+      p.y = clamp(p.y + vy * SPEED, 40, r.height - 40);
+
+      tickLogic();
+      render();
+    }
+
+    requestAnimationFrame(loop);
+  }
+
+  // Reset
+  if (btnReset) btnReset.addEventListener("click", resetGame);
+
+  // Start
+  resetGame();
+  loop();
+
+  // Resize olunca düzgün kalsın
+  window.addEventListener("resize", () => resetGame());
+})();
